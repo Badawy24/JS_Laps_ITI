@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 5 | JS</title>
+</head>
+<style>
+    body {
+        max-width: 500px;
+        margin: auto;
+    }
+
+    button {
+        margin: 10px;
+        padding: 5px;
+        text-align: center;
+        width: 100px;
+    }
+
+    img {
+        width: 100%;
+    }
+
+    .student {
+        margin-top: 30px;
+        padding: 10px;
+        background-color: #DDD;
+    }
+
+    .field {
+        margin-bottom: 10px;
+    }
+</style>
+
+<body>
+    <section class="slide">
+        <div>
+            <button id="next" onclick="currentSlide(1)">Next</button>
+            <button id="prev" onclick="currentSlide(2)">Previous</button>
+            <button id="start" onclick="currentSlide(3)">start</button>
+            <button id="stop" onclick="currentSlide(4)">stop</button>
+        </div>
+        <div class="slideshow">
+            <img src="img/cat1.jpg">
+        </div>
+    </section>
+
+    <section class="student">
+        <form>
+            <div class="field">
+                <label>Department:</label>
+
+                <input type="radio" name="department" value="SD">
+                <label> SD </label>
+
+                <input type="radio" name="department" value="OS">
+                <label> OS </label>
+
+                <input type="radio" name="department" value="EL">
+                <label> EL </label>
+
+                <span id="department-error" class="error"></span>
+            </div>
+
+            <div class="field">
+                <label>Student Name:</label>
+                <input type="text" id="name">
+                <span id="name-error" class="error"></span>
+            </div>
+
+            <div class="field">
+                <label>Student Grade:</label>
+                <input type="number" min="0" max="100" id="grade">
+                <span id="grade-error" class="error"></span>
+            </div>
+
+            <button id="addbtn">Add</button>
+        </form>
+
+        <div class="field">
+            <label>Sort:</label>
+            <select id="sort">
+                <option value="name">Name</option>
+                <option value="grade">Grade</option>
+            </select>
+
+        </div>
+        <div class="field">
+            <label>Filter:</label>
+            <select id="filter">
+                <option value="all">All</option>
+                <option value="failed">Failed</option>
+                <option value="success">Success</option>
+            </select>
+        </div>
+        <table id="studentTable" border="1" >
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Grade</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+
+    </section>
+
+    <script src="slide.js"></script>
+    <script src="studentForm.js"></script>
+</body>
+
+</html>
