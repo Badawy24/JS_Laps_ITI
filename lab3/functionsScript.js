@@ -49,3 +49,13 @@ function commonElements(arr1, arr2) {
 
 
 // -------- 5 --------
+let arrWithDublicate = [1, 2, 3, 4, 5, 1, 2, 3, 4, 5];
+
+let arrWithoutDuplicate = arrWithDublicate.filter((num) => {
+    if (arrWithoutDuplicate.includes(num)) {
+        arrWithoutDuplicate.push(num);
+}
+});
+
+
+console.log(arrWithoutDuplicate);
