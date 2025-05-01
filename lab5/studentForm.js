@@ -6,6 +6,10 @@ let addBtn = document.getElementById("add-btn");
 let name = document.getElementById("name");
 let grade = document.getElementById("grade");
 
+
+let departmentError = document.getElementById('department-error');
+let nameError = document.getElementById('name-error');
+let gradeError = document.getElementById('grade-error');
 // let students = [];
 let students = [
   { name: "Ahmed", grade: 45, department: "CS" },
@@ -14,7 +18,7 @@ let students = [
   { name: "Laila", grade: 95, department: "IS" },
   { name: "Omar", grade: 60, department: "CS" },
   { name: "Mona", grade: 77, department: "IT" },
-  { name: "Youssef", grade: 50, department: "IS" },
+  { name: "Youssef", grade: 51, department: "IS" },
   { name: "Nour", grade: 30, department: "CS" },
   { name: "Khaled", grade: 67, department: "IT" },
   { name: "Hana", grade: 90, department: "IS" },
@@ -45,13 +49,13 @@ function addToTable(obj) {
 
 
   tdName.innerText = student.name;
-  tdGrade.innerText = student.grade;
+  tdGrade.innerText = Number(student.grade);
   tdDept.innerText = student.department;
   delBtn.innerText = "Delete";
 
-  if(student.grade < 50){
+  if(Number(student.grade) < 50){
     trStudent.style.backgroundColor = "red";
-  } else if(student.grade >= 50 && student.grade < 75){
+  } else if(Number(student.grade) >= 50 && Number(student.grade) < 75){
     trStudent.style.backgroundColor = "yellow";
   } else {
     trStudent.style.backgroundColor = "green";
@@ -74,16 +78,43 @@ addBtn.onclick = function (e) {
   e.preventDefault();
 
   let department = document.querySelector('input[name="department"]:checked');
+  if (!department && ( department.value !== 'SD' || department.value !== 'OS' || department.value !== 'El')) {  
+    departmentError.style.display = "block";
+    departmentError.innerText = "Please select of Avilable";
+    setTimeout(() => {
+      departmentError.style.display = "none";
+    }, 5000);
+    return;
+  }
+
+
+  if (name.value === ''){
+    nameError.style.display = "block";
+    nameError.innerText = "Please Enter a Valid name";
+    setTimeout(() => {
+      nameError.style.display = "none";
+    }, 5000);
+    return;
+  } 
+  if (Number(grade.value) < 0 || Number(grade.value) > 100 || isNaN(grade.value)) {
+    gradeError.style.display = "block";
+    gradeError.innerText = "Please enter Grade Between 0 and 100";
+    setTimeout(() => {
+      gradeError.style.display = "none";
+    }, 5000);
+    return;
+  } 
+
 
   let student = ({
-    name: name.value,
+    name: stringPascalCase(name.value),
     grade: grade.value,
     department: department.value
   });
   students.push(student);
 
   addToTable(students);
-  // console.log(students);
+  console.log(students);
 }
 
 
@@ -95,7 +126,7 @@ sortSelect.onchange = function () {
     students.sort((student, studentNext) => student.name.localeCompare(studentNext.name));
     console.log("sorted");
   } else if (selectedValue === "grade") {
-    students.sort((student, studentNext) => student.grade - studentNext.grade);
+    students.sort((student, studentNext) => Number(student.grade) - studentNext.grade);
     console.log("grade sorted");
   }else{
     return;
@@ -108,12 +139,42 @@ let filterSelect = document.getElementById("filter");
 filterSelect.onchange = function () {
   let selectedValue = filterSelect.value;
   if (selectedValue === "failed") {
-    studentsFiltered = students.filter((student) => student.grade < 50);
+    studentsFiltered = students.filter((student) => Number(student.grade) < 50);
     addToTable(studentsFiltered);
   } else if (selectedValue === "success") {
-    studentsFiltered = students.filter((student) => student.grade >= 50);
+    studentsFiltered = students.filter((student) => Number(student.grade) >= 50);
     addToTable(studentsFiltered);
   } else {
     addToTable(students);
   }
+}
+
+// Capitalize Function
+function stringPascalCase(str) {
+  str.trim();
+  let strToArray = str.split(' ');
+  let mapArray = strToArray.map((wordFirstUpper) => {
+      return wordFirstUpper.charAt(0).toUpperCase() + wordFirstUpper.slice(1).toLowerCase();
+  });
+  if(studentUnique(mapArray.join(' '))){
+    return mapArray.join(' ');
+  }else{
+    return;
+  }
+}
+
+function studentUnique(studentCheck) {
+  let studentExists = students.some(student => {
+    return student.name.toLowerCase() === studentCheck.toLowerCase();
+  });
+  
+  if (studentExists) {
+    nameError.style.display = "block";
+    nameError.innerText = "This student already exists!";
+    setTimeout(() => {
+      nameError.style.display = "none";
+    }, 5000);
+    return false; 
+  }
+  return true; 
 }

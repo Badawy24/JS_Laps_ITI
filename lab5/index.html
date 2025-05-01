@@ -44,6 +44,14 @@
         width: 100px;
         
     }
+    .error{
+        display: none;
+        background-color: rgba(234, 29, 29, 0.8);
+        margin: 2px 100px;
+        padding: 2px 10px;
+        color: white;
+        width: 150px;
+    }
 </style>
 
 <body>
@@ -73,7 +81,7 @@
                 <input type="radio" name="department" value="EL" id="EL">
                 <label for="EL"> EL </label>
 
-                <span id="department-error" class="error"></span>
+                <span id="department-error" class="error">test</span>
             </div>
 
             <div class="field">
@@ -84,7 +92,7 @@
 
             <div class="field">
                 <label>Student Grade:</label>
-                <input type="number" min="0" max="100" id="grade">
+                <input type="text" id="grade">
                 <span id="grade-error" class="error"></span>
             </div>
 
