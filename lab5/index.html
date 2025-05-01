@@ -32,10 +32,22 @@
     .field {
         margin-bottom: 10px;
     }
+
+    #studentTable{
+        width: 100%;
+        margin-top: 20px;
+        background-color: bisque;
+    }
+    #studentTable td, #studentTable th {
+        border: 1px solid red;
+        padding: 5px;
+        width: 100px;
+        
+    }
 </style>
 
 <body>
-    <section class="slide">
+    <!-- <section class="slide">
         <div>
             <button id="next" onclick="currentSlide(1)">Next</button>
             <button id="prev" onclick="currentSlide(2)">Previous</button>
@@ -45,21 +57,21 @@
         <div class="slideshow">
             <img src="img/cat1.jpg">
         </div>
-    </section>
+    </section> -->
 
     <section class="student">
-        <form>
+        <form id="student-form">
             <div class="field">
                 <label>Department:</label>
 
-                <input type="radio" name="department" value="SD">
-                <label> SD </label>
+                <input type="radio" checked name="department" value="SD" id="SD">
+                <label for="SD"> SD </label>
 
-                <input type="radio" name="department" value="OS">
-                <label> OS </label>
+                <input type="radio" name="department" value="OS" id="OS">
+                <label for="OS"> OS </label>
 
-                <input type="radio" name="department" value="EL">
-                <label> EL </label>
+                <input type="radio" name="department" value="EL" id="EL">
+                <label for="EL"> EL </label>
 
                 <span id="department-error" class="error"></span>
             </div>
@@ -76,7 +88,7 @@
                 <span id="grade-error" class="error"></span>
             </div>
 
-            <button id="addbtn">Add</button>
+            <button id="add-btn">Add</button>
         </form>
 
         <div class="field">
@@ -95,16 +107,17 @@
                 <option value="success">Success</option>
             </select>
         </div>
-        <table id="studentTable" border="1" >
+        <table id="studentTable">
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Grade</th>
+                    <th>Department</th>
                     <th>Delete</th>
                 </tr>
             </thead>
-            <tbody>
-                
+            <tbody id="student-table-body">
+
             </tbody>
         </table>
 
